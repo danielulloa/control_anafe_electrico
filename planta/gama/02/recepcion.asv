@@ -1,0 +1,31 @@
+function recepcion(muestras)
+    delete(instrfind({'Port'},{'COM3'})); %%Modificar puerto
+    a=serial('com3');
+    set(a,'BaudRate',9600);
+    fopen(a);%%Inicializa puerto
+    A=fscanf(a,'%f');
+    s=0;
+
+    for i=1:(muestras)
+        A=fscanf(a,'%f');
+        t(i)=A(1,1);
+        plancha(i)=A(2,1);
+        agua(i)=A(3,1);
+            figure(1)
+    subplot(211)
+    plot(i,I(i),'^g',i,IIa1INA(i),'b+',i,IIa2INA(i),'k+',i,IIa3INA(i),'r+',i,IIIb1INA(i),'b*',i,IIIb2INA(i),'k*',i,IIIb3INA(i),'r*');
+    ylim([-300 300]);
+    xlim([0 muestras]);
+    title('Dif Presion [Pa]- INA 219// +bkr(fA123) *bkr(fB123)');
+    hold on; %Esto va siempre?
+    drawnow
+    end
+    
+fclose(a);
+delete(a);
+
+%%Genero los archivos .dat
+dlmwrite('tiempo.dat', t, 'delimiter', '\n', 'precision', '%.3f');
+dlmwrite('plancha.dat', plancha, 'delimiter', '\n', 'precision', '%.3f');
+dlmwrite('agua.dat', agua, 'delimiter', '\n', 'precision', '%.3f');
+end
