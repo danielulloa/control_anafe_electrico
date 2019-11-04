@@ -25,9 +25,9 @@
 #define RELE          9
 // valores KP, KI, KD
 
-double kp = 2;
-//int Td = 15;
-//int Ti = 62;
+double kp = 4.3;
+int Ti = 286;
+int Td = 16;
 
 double sumError;
 double derError; //Es la derivada del valor a la salida de la planta
@@ -41,7 +41,7 @@ double salida;
 int adaptado;
 
 void setup() {
-  Timer1.initialize(1000000);  // 1Hz
+  Timer1.initialize(4000000);  // 1Hz
   Serial.begin(250000);
   pinMode(VCC_RELE, OUTPUT);
   pinMode(RELE, OUTPUT);
@@ -66,8 +66,9 @@ void loop() {
   derError = (actual-anterior)/dt;
 
   //salida = kp*(error + sumError/Ti + derError*Td);
-  salida = kp*error;
-  adaptado = constrain(salida,0,1023);
+  //salida = kp*error;
+  salida = kp*(error + sumError/Ti);
+  adaptado = constrain(salida, 0, 1023);
 
   if (salida<1){
     digitalWrite(VCC_RELE,LOW);

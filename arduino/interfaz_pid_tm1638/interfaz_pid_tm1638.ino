@@ -1,7 +1,4 @@
 #include <TM1638plus.h>
-#include <PreciseLM35.h>
-const int pinLM35 = A0;
-const float arefRatio = 0.98819;
 #define STROBE_TM 4
 #define CLOCK_TM 6
 #define DIO_TM 7
@@ -15,7 +12,7 @@ int Ti = 50;
 int Td = 30;
 
 TM1638plus tm(STROBE_TM, CLOCK_TM, DIO_TM);
-PreciseLM35 lm35(pinLM35, INTERNAL1V1, arefRatio); //MEGA
+//PreciseLM35 lm35(pinLM35, INTERNAL1V1, arefRatio); //MEGA
 //PreciseLM35 lm35(pinLM35, INTERNAL, arefRatio); //UNO
 
 void setup() {
@@ -24,6 +21,7 @@ void setup() {
 }
 
 void loop() {
+  Serial.println("Lazo principal");
 MainMenu();
 }
 
@@ -48,18 +46,28 @@ void MainMenu(void)
       break;
     case 0x04:
       MainMode = 2;
+      Display(MainMode);
       settingsREF();
+      Serial.print(MainMode);
+      Serial.print("\t");
+      Serial.println("settingsREF");
       break;
     case 0x08:
       MainMode = 3;
+      Display(MainMode);
       settingsKP();
+      Serial.print(MainMode);
+      Serial.print("\t");
+      Serial.println("settingsREF");
       break;
     case 0x10:
       MainMode = 4;
+      Display(MainMode);
       settingsTI();
       break;
     case 0x20:
       MainMode = 5;
+      Display(MainMode);
       settingsTD();
       break;
     case 0x40:
@@ -69,6 +77,9 @@ void MainMenu(void)
   }
 
   Display(MainMode);
+  Serial.print(MainMode);
+      Serial.print("\t");
+      Serial.print("dibujar menu");
   }
 
 /* 
@@ -79,10 +90,16 @@ void MainMenu(void)
 
 void settingsREF(void)
 {
+  Serial.print(MainMode);
+      Serial.print("\t");
+  Serial.println("rutina settingsREF");
   boolean estado = 0;
   while (1)
   {
     Display(MainMode);
+    Serial.print(MainMode);
+      Serial.print("\t");
+    Serial.println("while");
     uint8_t buttons = buttonsRead();
     switch (buttons)
     {
@@ -185,23 +202,31 @@ uint8_t buttonsRead(void)
 
 void Display(uint8_t DisplayMode)
 {
-  switch (DisplayMode)
+  Serial.print("MAIN MODE DISPLAY");
+  Serial.print("\t");
+  Serial.println(MainMode);
+  switch (MainMode)
   {
     case 1 :
-    int temp = lm35.readCelsius();
+    Serial.println("caso 1");
+    int temp = analogRead(A0);
     char dest1[8];
     sprintf(dest1,"%04i%04i",temp,ref);
     tm.displayText(dest1);
     break;
 
     case 2:
-    char setpoint[4] = "set ";
-    char dest2[8];
-    sprintf(dest2,"%s%04i",setpoint,ref);
-    tm.displayText(dest2);
+//    char setpoint[1] = "set ";
+//    char dest2[8];
+//    sprintf(dest2,"%s%04i",setpoint,ref);
+//    Serial.println(dest2);
+//    tm.displayText(dest2);
+      tm.displayText("hello");
+      Serial.println("case 2");
     break;
 
     case 3:
+    Serial.println("caso 3");
     char strkp[4] = " KP ";
     char dest3[8];
     sprintf(dest3,"%s%4f",strkp, kp);

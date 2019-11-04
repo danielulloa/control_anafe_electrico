@@ -27,15 +27,15 @@ void setup() {
 }
 
 void loop() {
-//  int temp = lm35.readCelsius();
-//  char dest[8];
-//  sprintf(dest,"%04i%04i",temp,ref);
-//  tm.displayText(dest);
-//  Serial.println(dest);
-    char setpoint[4] = "hola";
-    char dest2[8];
-    sprintf(dest2,"%s%03i",setpoint,ref);
-    tm.displayText(dest2);
+  int temp = lm35.readCelsius();
+  char dest[8];
+  sprintf(dest,"%04i%04i",temp,ref);
+  tm.displayText(dest);
+  Serial.println(dest);
+//    char setpoint[4] = "hola";
+//    char dest2[8];
+//    sprintf(dest2,"%s%03i",setpoint,ref);
+//    tm.displayText(dest2);
   uint8_t buttons = buttonsRead();
   switch (buttons)
   {
