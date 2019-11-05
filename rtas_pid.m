@@ -1,7 +1,8 @@
-fileID=fopen('pid025hz_k3.7_Ti50.txt', 'r');
-M = textscan(fileID, '%{HH:mm:ss.SSS}D %f %f %f %f','delimiter','\t');
-t=M(:,1);
-temp=cell2mat(M(:,2));
+fileID=fopen('pid025_kp4.3_ti230_td16.txt', 'r');
+%M = textscan(fileID, '%{HH:mm:ss.SSS}D %f %f %f %f','delimiter','\t');
+M = textscan(fileID, '%f %f','delimiter','\t');
+t=M(:,2);
+temp=cell2mat(M(:,1));
 temp=smooth(temp,50);
 plot(temp)
 hold on

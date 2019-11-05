@@ -26,7 +26,7 @@
 // valores KP, KI, KD
 
 double kp = 4.3;
-int Ti = 286;
+int Ti = 230;
 int Td = 16;
 
 double sumError;
@@ -65,9 +65,9 @@ void loop() {
   //Derivada
   derError = (actual-anterior)/dt;
 
-  //salida = kp*(error + sumError/Ti + derError*Td);
+  salida = kp*(error + sumError/Ti + derError*Td);
   //salida = kp*error;
-  salida = kp*(error + sumError/Ti);
+  //salida = kp*(error + sumError/Ti);
   adaptado = constrain(salida, 0, 1023);
 
   if (salida<1){

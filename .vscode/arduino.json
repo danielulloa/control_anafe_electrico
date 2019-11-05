@@ -1,0 +1,5 @@
+{
+    "board": "arduino:avr:uno",
+    "sketch": "arduino\\control_temp_termocupla\\control_temp_termocupla.ino",
+    "port": "COM14"
+}
