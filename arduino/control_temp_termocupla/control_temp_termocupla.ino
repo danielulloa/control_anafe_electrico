@@ -84,11 +84,11 @@ void loop() {
   //DEBUG
   Serial.print(actual);
   Serial.print("\t");
-  Serial.print(adaptado);
-  Serial.print("\t");  
-  Serial.print(dt);
-  Serial.print("\t");
-  Serial.println(salida); 
+  Serial.println(adaptado);
+  //Serial.print("\t");  
+  //Serial.print(dt);
+  //Serial.print("\t");
+  //Serial.println(salida); 
   before = now;
   anterior = actual;
   delay(250);
